@@ -11,7 +11,7 @@ rm -rf ~/miniconda3/miniconda.sh
 ```
 
 ## Install a conda environment
-- A simple emoty python environment v3.10 as that is the most stable version with which nequip was written, so to avoid any breaking, we use it
+- A simple empty python environment v3.10 as that is the most stable version with which nequip was written, so to avoid any breaking, we use it
 ```
 conda create --name=nequip python=3.10 pytest
 conda activate nequip
@@ -37,15 +37,15 @@ cd nequip
 
 - On personal machine, might be worthwhile to use a slightly modified project 1 environment for testing
 ```
-conda env create --file=environment.yml --name=project2
-conda activate project2
+conda create --name=nequip python=3.10 pytest
+conda activate nequip
 ```
 
 ## Install latest pytorch version that can be used by nequip
 
 - without GPU support
 ```
-conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cpuonly -c pytorch
+conda install pytorch==1.11.0 cpuonly -c pytorch
 ```
 
 - For GPU support
@@ -60,9 +60,11 @@ sudo apt-get update
 sudo apt-get -y install cuda
 ```
 
-- Now install pytorch, torhcvision and audio are not necessary for nequip, and this conda version of cudatoolkit it usually not sufficient, so we need to install cuda with apt with matching version 
+- Now install pytorch, torhcvision and audio are not necessary for nequip.
+
+**NOTE**: the conda version of cudatoolkit it usually not sufficient, so we need to install cuda with apt with matching version following the above protocol if it is not already installed, the apt version needs to be same or _higher_ than the conda version.
 ```
-conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=11.3 -c pytorch
+conda install pytorch==1.11.0 cudatoolkit=11.3 -c pytorch
 ```
 
 ### Optionally install wandb to keep track of different iterations
@@ -72,11 +74,11 @@ pip install wandb
 wandb login
 ```
 
-## Install nequip as editable in case we want to change something in the code
+## Install nequip
 ```
 git clone https://github.com/mir-group/nequip.git
 cd nequip
-pip install . -e
+pip install .
 ```
 # Common instructions
 
@@ -88,8 +90,8 @@ pytest tests/htop
 
 ## Install the supported version of LAMMPS with the nequip pair potential
 ```
-git clone -b stable_29Sep2021_update2 --depth 1 git@github.com:lammps/lammp
-git clone git@github.com:mir-group/pair_nequip
+git clone -b stable_29Sep2021_update2 --depth 1 https://github.com/lammps/lammps.git
+git clone https://github.com/mir-group/pair_nequip.git
 cd pair_nequip
 ./patch_lammps.sh /path/to/lammps/
 cd lammps
@@ -100,3 +102,5 @@ cmake ../cmake -DCMAKE_PREFIX_PATH=`python -c 'import torch;print(torch.utils.cm
 
 ### To use LAMMPS
  - run the `lammps/build/lmp` 
+
+**NOTE**: this version of LAMMPS can only be run in serial as nequip potential doesn't support parallel calculation because of its inherent message passing algorythm. For parallel MD simulaion, allegro potential is required, but it is less robust than nequip and is also local, making it less accurate though much more computationally efficient.
