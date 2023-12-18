@@ -8,7 +8,7 @@ boundary p p p
 read_data LBS.lmp
 
 # for running a larger system, simply replicate the system in space
-# replicate 2 2 1
+# replicate 2 2 2
 
 # nequip pair style
 pair_style	nequip
@@ -42,8 +42,3 @@ thermo_style custom step temp pe etotal press c_1[*] c_2[*] c_3[*]
 dump 1 all custom 1000 dump_*.lmc id mass type element x y z fx fy fz 
 dump_modify 1 element Li B S sort id
 run 1000000
-
-
-
-
-
