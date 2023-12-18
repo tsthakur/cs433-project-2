@@ -1,0 +1,44 @@
+units metal
+atom_style atomic # use charge if some atoms are charged
+dimension 3
+
+# set newton on for pair_allegro (off for pair_nequip)
+newton off
+boundary p p p
+read_data LBS.lmp
+
+# for running a larger system, simply replicate the system in space
+# replicate 2 2 2
+
+# nequip pair style
+pair_style	nequip
+pair_coeff	* * ../../training/iteration_1_2-deployed.pth Li B S 
+mass 1 6.941
+mass 2 10.811
+mass 3 32.065
+
+# initialise velocities
+velocity all create 1000 12345 loop all
+
+neighbor 1.0 bin
+neigh_modify delay 5 every 1
+
+timestep 0.001
+thermo 100
+
+group Lithium type 1
+group Boron type 2
+group Sulfur type 3
+
+# nose-hoover thermostat
+fix 1 all nvt temp 1000 1000 0.05
+compute 1 Lithium msd com yes
+compute 2 Boron msd com yes
+compute 3 Sulfur msd com yes
+
+# outputting important quantities
+thermo_style custom step temp pe etotal press c_1[*] c_2[*] c_3[*]
+# writing positions and velocities in files
+dump 1 all custom 1000 dump_*.lmc id mass type element x y z fx fy fz 
+dump_modify 1 element Li B S sort id
+run 5000000
