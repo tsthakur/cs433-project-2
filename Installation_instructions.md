@@ -131,3 +131,9 @@ Following additions to `cmake` command may need to be explicitly defined
  - run the `lammps/build/lmp` 
 
 **NOTE**: this version of LAMMPS can only be run in serial as nequip potential doesn't support parallel calculation because of its inherent message passing algorythm. For parallel MD simulaion, allegro potential is required, but it is less robust than nequip and is also local, making it less accurate though much more computationally efficient.
+
+
+# Instructions for installing AiiDA
+
+We used AiiDA to automatically run all calculations and preserve their provenance. Installing AiiDA is easy but using it is not so straightfoward. We recommend not trying to spend too much time in this section as one needs to setup a lot of things to get AiiDA in a working condition. We nevertheless share our entire dataset in a format that can be imported by AiiDA so that all the querying we did makes sense in that context. We also share the dataset in an extented xyz format that can be read by ase and which was indeed used directly in the training by NequIP. 
+
