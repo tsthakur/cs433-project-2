@@ -1,0 +1,15 @@
+ase_args:
+  format: extxyz
+dtype: torch.float32
+extra_fixed_fields:
+  r_max: 6.0
+file_name: iteration_1_2.extxyz
+force_fixed_keys: !!set {}
+include_frames: null
+include_keys:
+- user_label
+key_mapping:
+  user_label: label0
+nequip_version: 0.5.6
+root: results
+url: null
