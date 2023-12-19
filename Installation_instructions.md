@@ -1,7 +1,7 @@
 # Instructions for cluster
 
 ## Install conda on piz-daint 
-- This is a nvidia gpu cluster with Intel® Xeon® E5-2690 v3 @ 2.60GHz (12 cores, 64GB RAM) and NVIDIA® Tesla® P100 16GB. Refer to this link - https://www.cscs.ch/computers/piz-daint
+- This is an nvidia gpu cluster with Intel® Xeon® E5-2690 v3 @ 2.60GHz (12 cores, 64GB RAM) and NVIDIA® Tesla® P100 16GB. Refer [here](https://www.cscs.ch/computers/piz-daint)
 ```
 mkdir -p ~/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
@@ -135,5 +135,54 @@ Following additions to `cmake` command may need to be explicitly defined
 
 # Instructions for installing AiiDA
 
-We used AiiDA to automatically run all calculations and preserve their provenance. Installing AiiDA is easy but using it is not so straightfoward. We recommend not trying to spend too much time in this section as one needs to setup a lot of things to get AiiDA in a working condition. We nevertheless share our entire dataset in a format that can be imported by AiiDA so that all the querying we did makes sense in that context. We also share the dataset in an extented xyz format that can be read by ase and which was indeed used directly in the training by NequIP. 
+We used AiiDA to automatically run all calculations and preserve their provenance. Installing AiiDA is easy but using it is not so straightfoward. We recommend not trying to spend too much time in this section as one needs to setup a lot of things to get AiiDA in a working condition. We nevertheless share our entire dataset in a format that can be imported by AiiDA so that all the querying we did makes sense in that context. We also share the dataset in an extented xyz format that can be read by ase without AiiDA, and which was indeed used directly in the training by NequIP. 
+
+Since following environment will be much more comples than previous ones, we recommend using [mamba](https://github.com/conda-forge/miniforge#mambaforge) on top of conda. 
+
+```
+conda install -c conda-forge mamba
+```
+
+Then install the latest version of AiiDA i.e. 2.4.0.
+```
+mamba create -n aiida240 -c conda-forge aiida-core==2.4.0 aiida-core.services==2.4.0
+mamba activate aiida240
+```
+
+Then either initialise the database or create a custom database. 
+```
+initdb -D mylocal_db
+pg_ctl -D mylocal_db -l logfile start
+```
+
+Custom database can be beneficial if there are multiple isntances of AiiDA are installed or if further isolation of the database is needed. Follow the instructions [here](https://aiida.readthedocs.io/projects/aiida-core/en/latest/intro/installation.html#creating-the-database) to do this.
+
+Launch rabbitmq server. Note that due to AiiDA being installed in a conda environment, rabbitmq needs to started everytime the system is rebooted.
+```
+rabbitmq-server -detached
+```
+
+Then do a quick setup of a default profile.
+```
+verdi quicksetup
+Info: enter "?" for help
+Info: enter "!" to ignore the default and set no value
+Profile name: me
+Email Address (for sharing data): me@user.com
+First name: my
+Last name: name
+Institution: where-i-work
+```
+
+In case of any doubts refer [here](https://aiida.readthedocs.io/projects/aiida-core/en/latest/intro/install_conda.html#intro-get-started-conda-install).
+
+Install aiida-quantumespresso plugin.
+```
+pip install aiida-quantumespresso
+```
+
+Finally download the archive containing the AiiDA database [here](https://drive.google.com/file/d/1y0paEys98aeSE7tgTuIvahs2Axkde186/view) as it's too big to be uploaded to github, and then import it.
+```
+verdi archive import project_2.aiida
+```
 

@@ -31,3 +31,5 @@ The `simulations` directory contains the input file for MD simulations. Inside e
 `Dataset_generation.ipynb` is the main notebook used to launch all the first-principles calculations using AiiDA and to use the output of these calculations to generate training data. Please note that this notebook will not work unless a proper AiiDA environment is set up. Even then the calculations cannot be launched as it requires having access to [piz-daint](https://www.cscs.ch/computers/piz-daint) and [LUMI-GPU](https://www.lumi-supercomputer.eu/get-started-2021/users-in-switzerland/) supercomputing clusters. For launching calculations on other clusters correct `computer` and `code` needs to be first set in AiiDA.
 
 `Results_analysis.ipynb` is a short notebook containing the results and analysis of iteration_1 and interation_1_2 of the MD simulations.
+
+`project_2.aiida` is an archive containing all the input and output data of first-principles calculations in this project which can be imported with AiiDA.
