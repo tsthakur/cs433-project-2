@@ -13,9 +13,9 @@ The file `Installation_instructions.md` contains exhaustive instructions to inst
 
 - LAMMPS - the [software](https://docs.lammps.org/Manual.html) used to run molecular dynamics simulations usint the potential built with NequIP. It is written in C++ and needs to be compiled after patching for NequIP.
 
-- Quantum ESPRESSO - the [code](https://www.quantum-espresso.org/) to run first-princples calculations that are used to generate training data. It is written in Fortran and compiling it is not trivial. We strongly recommend using the solution provided natively by the supercomputing clusters.
+- Quantum ESPRESSO - the [code](https://www.quantum-espresso.org/) to run first-principles calculations that are used to generate training data. It is written in Fortran and compiling it is not trivial. We strongly recommend using the solution provided natively by the supercomputing clusters.
 
-- AiiDA - the python [library](https://aiida.readthedocs.io/projects/aiida-core/en/latest/) to atomatically run calculations and preserve their provenance. While installing AiiDA is simple, setting up all the needed resources like profile, computer, code etc can be a time consuming process. 
+- AiiDA - the python [library](https://aiida.readthedocs.io/projects/aiida-core/en/latest/) to automatically run calculations and preserve their provenance. While installing AiiDA is simple, setting up all the needed resources like profile, computer, code etc can be a time consuming process. 
 
 - AiiDA Quantum ESPRESSO - the [plugin](https://github.com/aiidateam/aiida-quantumespresso) that interfaces Quantum ESPRESSO with AiiDA. 
 
