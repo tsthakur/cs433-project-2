@@ -3,7 +3,7 @@ The repository containing the code for the second project of Machine learning co
 
 # Introduction
 
-We first ran a full first-princples molecular dynamics (FPMD) calculation for 5000 time steps. This gave us the initial dataset for a first training of the model, which we called iteration 1. We originally planned to do a self-consisten training of NequIP, i.e. from this first not-so-accurate potential we ran an MD simulation, from which we would have extracted uncorrelated configurations. Onto which we would have launched first-principles calculations and which would serve to extended our dataset. But unfortunately the model was too inaccurate and the simulation exploded. So we retrained using the original FPMD trajectory by refining the hyperparameters. We called this iteration 1.2. This time the ML potential was quite accurate but took 3 whole days to train, and another day to run the MD simulation. For comparison, iteration 1 took 30 minutes to train and 3 hours to run MD simulation. Unfortunately due to the long training times, we didn't have time to do another iteration of training and running MD.
+We first ran a full first-princples molecular dynamics (FPMD) calculation for 5000 time steps. This gave us the initial dataset for a first training of the model, which we called iteration 1. We originally planned to do a self-consistent training of NequIP, i.e. from this first not-so-accurate potential we ran an MD simulation, from which we would have extracted uncorrelated configurations. Onto which we would have launched first-principles calculations and which would serve to extended our dataset. But unfortunately the model was too inaccurate and the simulation exploded. So we retrained using the original FPMD trajectory by refining the hyperparameters. We called this iteration 1.2. This time the ML potential was quite accurate but took 3 whole days to train, and another day to run the MD simulation. For comparison, iteration 1 took 30 minutes to train and 3 hours to run MD simulation. Unfortunately due to the long training times, we didn't have time to do another iteration of training and running MD.
 
 # Installation 
 
@@ -13,9 +13,9 @@ The file `Installation_instructions.md` contains exhaustive instructions to inst
 
 - LAMMPS - the [software](https://docs.lammps.org/Manual.html) used to run molecular dynamics simulations usint the potential built with NequIP. It is written in C++ and needs to be compiled after patching for NequIP.
 
-- Quantum ESPRESSO - the [code](https://www.quantum-espresso.org/) to run first-princples calculations that are used to generate training data. It is written in Fortran and compiling it is not trivial. We strongly recommend using the solution provided natively by the supercomputing clusters.
+- Quantum ESPRESSO - the [code](https://www.quantum-espresso.org/) to run first-principles calculations that are used to generate training data. It is written in Fortran and compiling it is not trivial. We strongly recommend using the solution provided natively by the supercomputing clusters.
 
-- AiiDA - the python [library](https://aiida.readthedocs.io/projects/aiida-core/en/latest/) to atomatically run calculations and preserve their provenance. While installing AiiDA is simple, setting up all the needed resources like profile, computer, code etc can be a time consuming process. 
+- AiiDA - the python [library](https://aiida.readthedocs.io/projects/aiida-core/en/latest/) to automatically run calculations and preserve their provenance. While installing AiiDA is simple, setting up all the needed resources like profile, computer, code etc can be a time consuming process. 
 
 - AiiDA Quantum ESPRESSO - the [plugin](https://github.com/aiidateam/aiida-quantumespresso) that interfaces Quantum ESPRESSO with AiiDA. 
 
